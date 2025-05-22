@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Data UMKM</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading */
+        h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #3a47d5; /* Warna biru seperti header */
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Label */
+        label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        /* Input dan Select box */
+        input[type="text"], select {
+            font-size: 16px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Focus effect pada input dan select */
+        input[type="text"]:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        /* Styling untuk tombol Simpan */
+        button.btn {
+            background-color: #00d2ff; /* Warna biru seperti header */
+            color: white;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Hover effect untuk tombol Simpan */
+        button.btn:hover {
+            background-color: #3a47d5; /* Biru lebih gelap saat hover */
+            transform: scale(1.05);
+        }
+
+        /* Styling untuk tombol Batal */
+        a.btn.cancel {
+            background-color: #04824c; /* Hijau seperti footer */
+            color: white;
+            padding: 14px 22px;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Hover effect untuk tombol Batal */
+        a.btn.cancel:hover {
+            background-color: #1a25a4; /* Biru gelap saat hover */
+            transform: scale(1.05);
+        }
+
+        /* Styling untuk alert messages */
+        .alert {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Success alert */
+        .alert-success {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        /* Danger alert */
+        .alert-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Warning alert */
+        .alert-warning {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        /* Optional: Add spacing antara form field */
+        form label, form select, form input {
+            margin-bottom: 16px;
+        }
+
+        /* Animasi tombol input dan select saat berinteraksi */
+        input[type="text"]:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        /* Responsiveness untuk tampilan mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            form {
+                width: 100%;
+            }
+
+            button.btn, a.btn.cancel {
+                width: 100%;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.2rem; /* Menyesuaikan ukuran heading di layar kecil */
+            }
+
+            label, input[type="text"], select {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Data UMKM</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label for="nama_umkm">Nama UMKM:</label>
+            <input type="text" name="nama_umkm" value="{{ umkm.nama }}" required>
+
+            {% for kriteria, opsi in kriteria.items() %}
+                <label for="{{ kriteria }}">{{ kriteria }}:</label>
+                {% set attr_name = kriteria|lower|replace(' ', '_') %}
+                <select name="{{ kriteria }}" required>
+                    {% for pilihan in opsi %}
+                        <option value="{{ pilihan }}"
+                            {% if umkm[attr_name] == pilihan %}selected{% endif %}>
+                            {{ pilihan }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endfor %}
+
+            <button type="submit" class="btn">Simpan Perubahan</button>
+            <a href="{{ url_for('routes.admin_dashboard') }}" class="btn cancel">Batal</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pendaftaran UMKM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            padding: 7px 0;
+            color: white;
+            position: fixed;
+            height: 60px;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        .header h1 {
+            font-size: 23px;
+            color: white;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+        .navbar a {
+            color: white;
+            margin-left: 10px;
+            padding-left: 10px;
+            padding-right: 30px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: 600;
+        }
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        .form-group select {
+            appearance: none;
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 20px;
+            padding-right: 30px;
+        }
+        .form-group select::-ms-expand {
+            display: none;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .kembali {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .kembali a {
+            color: #007BFF;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            transition: color 0.3s ease;
+        }
+        .kembali a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UMKM" class="logo" />
+            <h1 class="text-lg font-semibold">Sistem Pemilihan UMKM Binaan</h1>
+        </div>
+        <nav class="navbar">
+            <a href="{{ url_for('routes.index') }}">Beranda</a>
+            <a href="/tentang">Tentang</a>
+        </nav>
+    </div>
+
+    <!-- Container agar form tidak terlalu melebar dan terpusat -->
+    <div class="container">
+        <form method="post" action="{{ url_for('routes.daftar') }}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nama_umkm">Nama UMKM:</label>
+                <input type="text" id="nama_umkm" name="nama_umkm" required />
+            </div>
+
+            {% for kriteria, sub_kriteria_list in kriteria.items() %}
+                <div class="form-group">
+                    <label for="{{ kriteria }}">{{ kriteria }}:</label>
+                    <select id="{{ kriteria }}" name="{{ kriteria }}" required>
+                        {% for sub_kriteria in sub_kriteria_list %}
+                            <option value="{{ sub_kriteria }}">{{ sub_kriteria }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endfor %}
+
+            <div class="form-group">
+                <label for="berkas_pdf">Upload 1 File (PDF) yang berisi NIB, NPWP, Sertifikat Halal, dan PIRT:</label>
+                <input type="file" class="form-control-file" id="berkas_pdf" name="berkas_pdf" accept="application/pdf" required>
+            </div>
+
+
+            <button type="submit">Kirim</button>
+
+            <!-- Tombol kembali di bawah tombol Kirim -->
+            <div class="kembali">
+                <a href="{{ url_for('routes.index') }}">Kembali ke Beranda</a>
+            </div>
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+</body>
+</html>

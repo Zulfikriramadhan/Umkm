@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang UMKM Binaan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UMKM" class="logo">
+        <h1 class="text-lg font-semibold">Tentang UMKM Binaan Bank Indonesia</h1>
+    </div>
+    <nav class="navbar">
+        <a href="/">Beranda</a>
+    </nav>
+</div>
+
+<!-- Konten -->
+<div class="content">
+    <h2>Peran Bank Indonesia dalam Pembinaan UMKM</h2>
+    <p>
+        Usaha Mikro, Kecil, dan Menengah (UMKM) memegang peranan penting dalam perekonomian Indonesia.
+        Bank Indonesia sebagai bank sentral tidak hanya berperan dalam menjaga stabilitas moneter, tetapi juga turut mendukung penguatan sektor riil, khususnya UMKM, melalui program pembinaan dan pengembangan.
+    </p>
+    <p>
+        UMKM binaan Bank Indonesia merupakan pelaku usaha yang telah diseleksi dan mendapatkan dukungan pembinaan berupa pelatihan manajemen, akses pasar, digitalisasi usaha, hingga pembiayaan inklusif.
+        Tujuan dari program ini adalah untuk meningkatkan kapasitas dan daya saing UMKM agar mampu bersaing di pasar nasional maupun global.
+    </p>
+    <p>
+        Dalam sistem klasifikasi ini, kami melakukan penilaian terhadap berbagai aspek penting dari UMKM seperti legalitas, omzet, potensi pertumbuhan, komitmen usaha, serta kebutuhan pembinaan, dll.
+        Hasil klasifikasi ini diharapkan dapat membantu pengambil kebijakan dalam menyalurkan program pembinaan yang tepat sasaran.
+    </p>
+</div>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 Program UMKM  Binaan
+</footer>
+
+<!-- CSS Langsung -->
+<style>
+    /* Umum */
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f6f9;
+    }
+
+    /* Header */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        padding: 7px 0;
+        color: white;
+        position: fixed;
+        height: 60px;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        height: 50px;
+        margin-right: 15px;
+    }
+
+    .navbar {
+        margin-right: 30px;
+    }
+
+    .navbar a {
+        color: white;
+        margin-left: 10px;
+        padding-left: 10px;
+        padding-right: 30px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Konten */
+    .content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 100px 20px 40px; /* Padding atas untuk hindari tertutup header */
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 20px;
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+    h2 {
+        font-size: 22px;
+        color: #3e3e3e;
+        margin-bottom: 20px;
+    }
+
+    p {
+        line-height: 1.8;
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #1e2447;
+        color: white;
+        margin-top: 40px;
+    }
+</style>
+
+</body>
+</html>
